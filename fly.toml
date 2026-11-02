@@ -6,21 +6,21 @@ app = "lancenter-backend"
 primary_region = "scl"
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = 'Dockerfile'
 
 [env]
-  NODE_ENV = "production"
-  HOST = "0.0.0.0"
-  PORT = "8080"
-  JWT_EXPIRES_IN = "7d"
+  HOST = '0.0.0.0'
+  JWT_EXPIRES_IN = '7d'
+  NODE_ENV = 'production'
+  PORT = '8080'
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 1
-  processes = ["app"]
+  processes = ['app']
 
   [[http_service.checks]]
     interval = "15s"
@@ -30,6 +30,8 @@ primary_region = "scl"
     path = "/health"
 
 [[vm]]
-  size = "shared-cpu-1x"
-  memory = "256mb"
+  size = 'shared-cpu-1x'
+  memory = '256mb'
+  cpu_kind = 'shared'
   cpus = 1
+  memory_mb = 256
