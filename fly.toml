@@ -1,0 +1,36 @@
+# Lancenter API — Fly.io
+# Primera vez: cd backend && fly launch --no-deploy
+# (puedes aceptar este fly.toml o renombrar `app`)
+# Luego: fly secrets set ... && fly deploy
+
+app = "lancenter-api"
+primary_region = "scl"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  NODE_ENV = "production"
+  HOST = "0.0.0.0"
+  PORT = "8080"
+  JWT_EXPIRES_IN = "7d"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+  [[http_service.checks]]
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "15s"
+    method = "GET"
+    path = "/health"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
+  cpus = 1
