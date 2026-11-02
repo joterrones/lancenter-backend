@@ -1,4 +1,5 @@
 # Lancenter API — https://lancenter-backend.fly.dev
+# Región gru (mejor RTT desde Perú/LatAm). RDS us-east-1 añade ~100ms/query.
 app = "lancenter-backend"
 primary_region = "gru"
 
@@ -14,13 +15,14 @@ primary_region = "gru"
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  # POS: nunca apagar (cold start = varios segundos de espera).
+  auto_stop_machines = "off"
   auto_start_machines = true
   min_machines_running = 1
   processes = ["app"]
 
   [[http_service.checks]]
-    interval = "15s"
+    interval = "30s"
     timeout = "5s"
     grace_period = "20s"
     method = "GET"
@@ -28,5 +30,5 @@ primary_region = "gru"
 
 [[vm]]
   size = "shared-cpu-1x"
-  memory = "256mb"
+  memory = "512mb"
   cpus = 1

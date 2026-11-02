@@ -2,7 +2,7 @@ import "./loadEnv";
 import { createApp } from "./app";
 import { hasDatabaseUrl } from "./lib/db";
 
-const port = Number(process.env.PORT ?? 3701);
+const port = Number(process.env.PORT ?? 3600);
 const host = process.env.HOST ?? "0.0.0.0";
 
 const app = createApp();
