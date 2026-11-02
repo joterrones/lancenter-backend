@@ -15,6 +15,16 @@ export function createApp() {
   app.use(cors());
   app.use(express.json());
 
+  app.get("/", (_req, res) => {
+    res.json({
+      ok: true,
+      name: "Lancenter API",
+      health: "/health",
+      ready: "/ready",
+      auth: "POST /auth/login",
+    });
+  });
+
   // Siempre responde 200 para que Fly marque la máquina sana.
   app.get("/health", (_req, res) => {
     res.json({
