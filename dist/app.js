@@ -18,6 +18,15 @@ function createApp() {
     const app = (0, express_1.default)();
     app.use((0, cors_1.default)());
     app.use(express_1.default.json());
+    app.get("/", (_req, res) => {
+        res.json({
+            ok: true,
+            name: "Lancenter API",
+            health: "/health",
+            ready: "/ready",
+            auth: "POST /auth/login",
+        });
+    });
     // Siempre responde 200 para que Fly marque la máquina sana.
     app.get("/health", (_req, res) => {
         res.json({
