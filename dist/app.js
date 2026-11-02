@@ -8,6 +8,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const auth_1 = require("./middleware/auth");
 const error_1 = require("./middleware/error");
+const db_1 = require("./lib/db");
 const auth_2 = require("./routes/auth");
 const equipos_1 = require("./routes/equipos");
 const ventas_1 = require("./routes/ventas");
@@ -17,8 +18,22 @@ function createApp() {
     const app = (0, express_1.default)();
     app.use((0, cors_1.default)());
     app.use(express_1.default.json());
+    // Siempre responde 200 para que Fly marque la máquina sana.
     app.get("/health", (_req, res) => {
-        res.json({ ok: true, name: "Lancenter API" });
+        res.json({
+            ok: true,
+            name: "Lancenter API",
+            databaseConfigured: (0, db_1.hasDatabaseUrl)(),
+        });
+    });
+    app.get("/ready", async (_req, res) => {
+        const db = await (0, db_1.checkDatabase)();
+        const status = db.ok ? 200 : 503;
+        res.status(status).json({
+            ok: db.ok,
+            name: "Lancenter API",
+            database: db,
+        });
     });
     app.use("/auth", auth_2.authRouter);
     app.use("/equipos", auth_1.auth, equipos_1.equiposRouter);

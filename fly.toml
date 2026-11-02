@@ -1,10 +1,9 @@
-# fly.toml app configuration file generated for lancenter-backend on 2026-11-02T06:51:24Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
+# App real creada por Fly Launch: lancenter-backend
+# Deploy: cd backend && fly deploy
+# Secrets: fly secrets set DATABASE_URL=... JWT_SECRET=... ADMIN_PASSWORD=...
 
-app = 'lancenter-backend'
-primary_region = 'gru'
+app = "lancenter-backend"
+primary_region = "scl"
 
 [build]
   dockerfile = 'Dockerfile'
@@ -24,11 +23,11 @@ primary_region = 'gru'
   processes = ['app']
 
   [[http_service.checks]]
-    interval = '15s'
-    timeout = '5s'
-    grace_period = '15s'
-    method = 'GET'
-    path = '/health'
+    interval = "15s"
+    timeout = "5s"
+    grace_period = "20s"
+    method = "GET"
+    path = "/health"
 
 [[vm]]
   size = 'shared-cpu-1x'

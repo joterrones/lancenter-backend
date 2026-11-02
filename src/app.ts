@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { auth } from "./middleware/auth";
 import { errorHandler } from "./middleware/error";
+import { checkDatabase, hasDatabaseUrl } from "./lib/db";
 import { authRouter } from "./routes/auth";
 import { equiposRouter } from "./routes/equipos";
 import { ventasRouter } from "./routes/ventas";
@@ -14,8 +15,23 @@ export function createApp() {
   app.use(cors());
   app.use(express.json());
 
+  // Siempre responde 200 para que Fly marque la máquina sana.
   app.get("/health", (_req, res) => {
-    res.json({ ok: true, name: "Lancenter API" });
+    res.json({
+      ok: true,
+      name: "Lancenter API",
+      databaseConfigured: hasDatabaseUrl(),
+    });
+  });
+
+  app.get("/ready", async (_req, res) => {
+    const db = await checkDatabase();
+    const status = db.ok ? 200 : 503;
+    res.status(status).json({
+      ok: db.ok,
+      name: "Lancenter API",
+      database: db,
+    });
   });
 
   app.use("/auth", authRouter);
