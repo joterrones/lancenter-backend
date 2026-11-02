@@ -3,7 +3,7 @@
 # Secrets: fly secrets set DATABASE_URL=... JWT_SECRET=... ADMIN_PASSWORD=...
 
 app = "lancenter-backend"
-primary_region = "scl"
+primary_region = "gru"
 
 [build]
   dockerfile = "Dockerfile"
