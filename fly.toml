@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for lancenter-backend-vovzcq on 2026-11-02T07:25:19Z
+# fly.toml app configuration file generated for lancenter-backend on 2026-11-02T07:42:52Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'lancenter-backend-vovzcq'
-primary_region = 'ams'
+app = 'lancenter-backend'
+primary_region = 'gru'
 
 [build]
   dockerfile = 'Dockerfile'
