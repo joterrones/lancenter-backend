@@ -2,7 +2,7 @@
  * Smoke test contra API Lancenter en ejecución.
  * Uso: npm run dev (otra terminal) && npx tsx scripts/verify-api.ts
  */
-const base = process.env.API_BASE ?? "http://localhost:3701";
+const base = process.env.API_BASE ?? "http://localhost:3600";
 
 async function main() {
   const health = await fetch(`${base}/health`).then((r) => r.json());

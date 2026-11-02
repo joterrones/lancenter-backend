@@ -1,10 +1,7 @@
-# fly.toml app configuration file generated for lancenter-backend-xxywzq on 2026-11-02T08:41:38Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
-app = 'lancenter-backend-xxywzq'
-primary_region = 'ams'
+# Lancenter API — https://lancenter-backend.fly.dev
+# Región gru (mejor RTT desde Perú/LatAm). RDS us-east-1 añade ~100ms/query.
+app = "lancenter-backend"
+primary_region = "gru"
 
 [build]
   dockerfile = 'Dockerfile'
@@ -18,21 +15,21 @@ primary_region = 'ams'
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = 'stop'
+  # POS: nunca apagar (cold start = varios segundos de espera).
+  auto_stop_machines = "off"
   auto_start_machines = true
   min_machines_running = 1
   processes = ['app']
 
   [[http_service.checks]]
-    interval = '15s'
-    timeout = '5s'
-    grace_period = '20s'
-    method = 'GET'
-    path = '/health'
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "20s"
+    method = "GET"
+    path = "/health"
 
 [[vm]]
-  size = 'shared-cpu-1x'
-  memory = '256mb'
-  cpu_kind = 'shared'
+  size = "shared-cpu-1x"
+  memory = "512mb"
   cpus = 1
   memory_mb = 2048
