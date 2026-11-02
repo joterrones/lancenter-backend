@@ -1,9 +1,10 @@
-# App real creada por Fly Launch: lancenter-backend
-# Deploy: cd backend && fly deploy
-# Secrets: fly secrets set DATABASE_URL=... JWT_SECRET=... ADMIN_PASSWORD=...
+# fly.toml app configuration file generated for lancenter-backend-vovzcq on 2026-11-02T07:25:19Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "lancenter-backend"
-primary_region = "scl"
+app = 'lancenter-backend-vovzcq'
+primary_region = 'ams'
 
 [build]
   dockerfile = 'Dockerfile'
@@ -23,11 +24,11 @@ primary_region = "scl"
   processes = ['app']
 
   [[http_service.checks]]
-    interval = "15s"
-    timeout = "5s"
-    grace_period = "20s"
-    method = "GET"
-    path = "/health"
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '20s'
+    method = 'GET'
+    path = '/health'
 
 [[vm]]
   size = 'shared-cpu-1x'
